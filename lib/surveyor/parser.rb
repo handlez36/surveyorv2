@@ -93,7 +93,8 @@ module Surveyor
           if context[:survey].save
             Surveyor::Parser.rake_trace "Survey saved."
           else
-            require 'pry'; binding.pry
+            puts "Throwing error"
+            puts "Error: #{context[:survey].errors}"
             Surveyor::Parser.raise_error "Survey not saved: #{context[:survey].errors.full_messages.join(", ")}"
           end
         else

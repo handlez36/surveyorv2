@@ -62,6 +62,7 @@ module Surveyor
       self.context = {}
     end
     def parse(str)
+      puts "Str: #{str}"
       instance_eval(str)
       return context[:survey]
     end

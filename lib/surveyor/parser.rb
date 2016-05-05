@@ -96,7 +96,7 @@ module Surveyor
           else
             puts "Throwing error"
             puts "Error count: #{context[:survey].errors.count}"
-            #puts "Errors: #{context[:survey].errors.count}"
+            puts "Survey: #{context[:survey].inspect}"
             Surveyor::Parser.raise_error "Survey not saved: #{context[:survey].errors.full_messages.join(", ")}"
           end
         else

@@ -67,7 +67,6 @@ module Surveyor
     end
     # This method_missing does all the heavy lifting for the DSL
     def method_missing(missing_method, *args, &block)
-      puts "Missing Method: #{missing_method}"
       method_name, reference_identifier = missing_method.to_s.split("_", 2)
       type = full(method_name)
       Surveyor::Parser.raise_error( "\"#{type}\" is not a surveyor method." )if !%w(survey survey_translation survey_section question_group question dependency dependency_condition answer validation validation_condition).include?(type)
@@ -94,9 +93,7 @@ module Surveyor
           if context[:survey].save
             Surveyor::Parser.rake_trace "Survey saved."
           else
-            puts "Throwing error"
-            puts "Error count: #{context[:survey].errors.count}"
-            puts "Survey: #{context[:survey].inspect}"
+            puts "Survey: #{self.context[:bad_references].inspect}"
             Surveyor::Parser.raise_error "Survey not saved: #{context[:survey].errors.full_messages.join(", ")}"
           end
         else

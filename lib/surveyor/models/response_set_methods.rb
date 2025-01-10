@@ -34,6 +34,7 @@ module Surveyor
           def has_blank_value?(hash)
             return true if hash["answer_id"].blank?
             return false if (q = Question.find_by_id(hash["question_id"])) and q.pick == "one"
+            puts "In has_blank_value?"
             hash.any?{|k,v| v.is_a?(Array) ? v.all?{|x| x.to_s.blank?} : v.to_s.blank?}
           end
         end
@@ -144,6 +145,7 @@ module Surveyor
         end
       end
       def is_group_unanswered?(group)
+        puts "In is_group_unanswered?"
         group.questions.any?{|question| is_unanswered?(question)}
       end
 
@@ -180,6 +182,7 @@ module Surveyor
 
       # Check existence of responses to questions from a given survey_section
       def no_responses_for_section?(section)
+        puts "In no_responses_for_section?"
         !responses.any?{|r| r.survey_section_id == section.id}
       end
 

@@ -197,7 +197,7 @@ module Surveyor
             question_ref = Question.find(updateable_attributes["question_id"]).reference_identifier
 
                 
-              
+            puts "Existing #{existing.class} :: #{existing.inspect}"  
             if self.class.has_blank_value?(response_hash)
               existing.destroy if existing
             elsif existing

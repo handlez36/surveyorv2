@@ -5,11 +5,11 @@ Rabl.configure {|config| config.include_json_root = false }
 module Surveyor
   module SurveyorControllerMethods
     def self.included(base)
-      base.send :before_after, :get_current_user, :only => [:new, :create]
-      base.send :before_after, :determine_if_javascript_is_enabled, :only => [:create, :update]
-      base.send :before_after, :set_response_set_and_render_context, :only => [:edit, :show]
+      base.send :before_action, :get_current_user, :only => [:new, :create]
+      base.send :before_action, :determine_if_javascript_is_enabled, :only => [:create, :update]
+      base.send :before_action, :set_response_set_and_render_context, :only => [:edit, :show]
       base.send :layout, 'surveyor_default'
-      base.send :before_after, :set_locale
+      base.send :before_action, :set_locale
     end
 
     # Strong parameters
@@ -48,7 +48,7 @@ module Surveyor
     end
 
     def show
-      # @response_set is set in before_after - set_response_set_and_render_context
+      # @response_set is set in before_action - set_response_set_and_render_context
       if @response_set
         @survey = Survey.includes({ sections: 
           { questions: [:answers, { question_group: { dependency: :dependency_conditions } }, 
@@ -68,7 +68,7 @@ module Surveyor
     end
 
     def edit
-      # @response_set is set in before_after - set_response_set_and_render_context
+      # @response_set is set in before_action - set_response_set_and_render_context
       if @response_set
         @survey = @response_set.survey
         @sections = @survey.sections.includes(questions: 

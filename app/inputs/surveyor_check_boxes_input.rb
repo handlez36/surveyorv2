@@ -6,7 +6,7 @@ class SurveyorCheckBoxesInput < Formtastic::Inputs::CheckBoxesInput
   def choice_html(choice)
     output = "" 
     output << template.content_tag(:label,
-      hidden_fields? ?
+      (false && hidden_fields?) ?
         check_box_with_hidden_input(choice) :
         check_box_without_hidden_input(choice) <<
       choice_label(choice),

@@ -34,7 +34,7 @@ module Surveyor
           def has_blank_value?(hash)
             return true if hash["answer_id"].blank?
             return false if (q = Question.find_by_id(hash["question_id"])) and q.pick == "one"
-            puts "In has_blank_value?"
+            puts "In has_blank_value? #{hash.class} :: #{hash.inspect} "
             hash.any?{|k,v| v.is_a?(Array) ? v.all?{|x| x.to_s.blank?} : v.to_s.blank?}
           end
         end

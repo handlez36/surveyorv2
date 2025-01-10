@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name = %q{surveyor}
   s.version = Surveyor::VERSION
 
-  s.authors = ["Brian Chamberlain", "Mark Yoon"]
+  s.authors = ["Brian Chamberlain", "Mark Yoon", "Brandon McLean"]
   s.email = %q{yoon@northwestern.edu}
   s.homepage = %q{http://github.com/NUBIC/surveyor}
   s.post_install_message = %q{Thanks for installing surveyor! The time has come to run the surveyor generator and migrate your database, even if you are upgrading.}

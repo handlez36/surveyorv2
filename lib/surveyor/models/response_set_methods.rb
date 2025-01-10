@@ -197,7 +197,6 @@ module Surveyor
             question_ref = Question.find(updateable_attributes["question_id"]).reference_identifier
 
                 
-            puts "Existing #{existing.class} :: #{existing.inspect}"  
             if self.class.has_blank_value?(response_hash)
               existing.destroy if existing
             elsif existing
@@ -206,13 +205,13 @@ module Surveyor
               end
               if question_ref == "phq_date" || question_ref == "phq_dob"
                 if updateable_attributes["string_value"] =~ /\A(?:0[1-9]|10|11|12)\/(?:0[1-9]|[1-2]\d|3[0-1])\/(?:(?:19|20)\d{2})\z/
-                  existing.update_attributes(updateable_attributes)
+                  existing.update(updateable_attributes)
                 else
                   key = question_ref == "phq_date" ? :"today's date" : :date_of_birth
                   self.errors.add(key, "should be formatted as mm/dd/yyyy")
                 end
               else
-                existing.update_attributes(updateable_attributes)
+                existing.update(updateable_attributes)
               end
             else
               responses.build(updateable_attributes).tap do |r|

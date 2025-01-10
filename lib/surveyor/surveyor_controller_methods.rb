@@ -90,7 +90,8 @@ module Surveyor
     end
 
     def update
-      question_ids_for_dependencies = (surveyor_params[:r] || []).map{|k,v| v["question_id"] }.compact.uniq
+      # question_ids_for_dependencies = (surveyor_params[:r] || []).map{|k,v| v["question_id"] }.compact.uniq
+      question_ids_for_dependencies = (surveyor_params[:r] || []).to_unsafe_h.map{|k,v| v["question_id"] }.compact.uniq
       saved = load_and_update_response_set_with_retries
       form_valid = true
 
